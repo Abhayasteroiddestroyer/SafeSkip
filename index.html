@@ -29,11 +29,16 @@
         </section>
 
         <!-- Step 2: OCR Upload -->
-        <section class="panel">
-            <h3>2. Upload Timetable Photo</h3>
-            <input type="file" id="image-input" accept="image/*">
-            <div id="status">Ready</div>
-        </section>
+<section class="panel">
+    <h3>2. Upload Timetable Photo</h3>
+    <input type="file" id="image-input" accept="image/*">
+    <div id="status" style="margin-top: 10px;">Ready</div>
+    <!-- New Proceed Button -->
+    <button id="proceed-ocr-btn" class="main-btn" style="display:none; margin-top: 15px; background: #238636;">
+        Proceed & Scan Image
+    </button>
+</section>
+
 
         <!-- Step 3: Confirmation & Results -->
         <section id="result-panel" class="panel" style="display:none;">
