@@ -40,3 +40,18 @@
     <script src="script.js"></script>
 </body>
 </html>
+<section class="upload-section" data-aos="fade-down">
+    <h2>📅 Import Timetable</h2>
+    <div id="drop-zone" class="drag-area">
+        <div class="icon">📁</div>
+        <header>Drag & Drop CSV to Upload</header>
+        <span>OR</span>
+        <button onclick="document.getElementById('file-input').click()">Browse File</button>
+        <input type="file" id="file-input" hidden accept=".csv">
+    </div>
+    <div id="file-preview" class="glass-card" style="display: none; margin-top: 20px;">
+        <h3>Timetable Preview</h3>
+        <div id="table-container"></div>
+    </div>
+</section>
+
