@@ -78,3 +78,69 @@ function displayCSV(data) {
     document.getElementById("table-container").innerHTML = tableHtml;
     document.getElementById("file-preview").style.display = "block";
 }
+let customHolidays = [];
+
+function addHoliday() {
+    const date = prompt("Enter Holiday Date (YYYY-MM-DD):");
+    if (date) {
+        customHolidays.push(date);
+        document.getElementById('holiday-list').innerHTML += `<span>[${date}] </span>`;
+    }
+}
+
+document.getElementById('image-input').addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    document.getElementById('status').innerText = "Scanning Timetable...";
+    
+    // Tesseract OCR
+    const { data: { text } } = await Tesseract.recognize(file, 'eng');
+    document.getElementById('status').innerText = "Scan Complete. Please confirm.";
+    
+    // Extract unique words longer than 3 chars as potential subjects
+    const potentialSubjects = [...new Set(text.match(/\b[A-Za-z]{4,}\b/g))];
+    showConfirmation(potentialSubjects);
+});
+
+function showConfirmation(subjects) {
+    const list = document.getElementById('subject-confirm-list');
+    list.innerHTML = "";
+    subjects.forEach(sub => {
+        list.innerHTML += `
+            <div class="subject-item">
+                <input type="text" value="${sub}" class="sub-name">
+                <input type="number" value="3" class="weekly-freq" title="Classes per week">
+            </div>`;
+    });
+    document.getElementById('result-panel').style.display = "block";
+}
+
+document.getElementById('calculate-btn').addEventListener('click', () => {
+    const start = new Date(document.getElementById('start-month').value);
+    const end = new Date(document.getElementById('end-month').value + "-31");
+    const criteria = parseInt(document.getElementById('criteria').value);
+    const offDays = Array.from(document.querySelectorAll('.days-selector input:checked')).map(i => parseInt(i.value));
+
+    // Calculate total working days in range
+    let workingDaysCount = 0;
+    for (let d = new Date(start); d <= end; d.setDate(d.getDate() + 1)) {
+        const day = d.getDay();
+        const dateStr = d.toISOString().split('T')[0];
+        if (!offDays.includes(day) && !customHolidays.includes(dateStr)) {
+            workingDaysCount++;
+        }
+    }
+
+    // Display final "Safe Skips"
+    document.querySelectorAll('.subject-item').forEach(item => {
+        const name = item.querySelector('.sub-name').value;
+        const freq = parseInt(item.querySelector('.weekly-freq').value);
+        
+        // Estimate total classes (Weeks * Freq)
+        const totalClasses = Math.floor((workingDaysCount / 7) * freq);
+        const allowedSkips = Math.floor(totalClasses * (1 - (criteria / 100)));
+        
+        item.innerHTML = `<span>${name}</span> <span class="skips">${allowedSkips} Skips Allowed</span>`;
+    });
+});
