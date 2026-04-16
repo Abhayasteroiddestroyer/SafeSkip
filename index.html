@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AC | Smart Attendance Planner</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://googleapis.com" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <nav>
+        <div class="logo">Abhay Chauhan<span>.</span></div>
+    </nav>
+
+    <main class="container">
+        <section class="config-panel">
+            <h2>⚙️ Plan Your Semester</h2>
+            <div class="input-group">
+                <label>Attendance Criteria (%)</label>
+                <input type="number" id="criteria" value="75" placeholder="e.g. 75">
+            </div>
+            <div class="input-group">
+                <label>Semester Duration (Months)</label>
+                <select id="duration">
+                    <option value="4">4 Months</option>
+                    <option value="5">5 Months</option>
+                    <option value="6">6 Months</option>
+                </select>
+            </div>
+        </section>
+
+        <section class="dashboard">
+            <h2>📊 Subject Wise Holiday Allowance</h2>
+            <div id="subject-cards" class="grid-container">
+                <!-- Cards injected via JS -->
+            </div>
+            <button onclick="addSubject()" class="add-btn">+ Add New Subject</button>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
