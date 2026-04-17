@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeSkip | Attendance Planner</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>SafeSkip</h1>
+            <p>Calculate your freedom without the detention.</p>
+        </header>
+
+        <div class="card">
+            <div class="input-group">
+                <label>Subject Name</label>
+                <input type="text" id="subject" placeholder="e.g. Mathematics">
+            </div>
+
+            <div class="row">
+                <div class="input-group">
+                    <label>Attendance Goal (%)</label>
+                    <input type="number" id="criteria" value="75" min="60" max="80">
+                </div>
+                <div class="input-group">
+                    <label>Classes Attended</label>
+                    <input type="number" id="attended" placeholder="0">
+                </div>
+                <div class="input-group">
+                    <label>Total Classes Held</label>
+                    <input type="number" id="total" placeholder="0">
+                </div>
+            </div>
+
+            <button onclick="calculateSkip()">Calculate Safe Skips</button>
+        </div>
+
+        <div id="result" class="result-box" style="display: none;">
+            <!-- Results will appear here -->
+        </div>
+
+        <footer>
+            <p>Developed by: <strong>Abhay Chauhan</strong></p>
+            <p><a href="mailto:abhaychauhan2103@gmail.com">abhaychauhan2103@gmail.com</a></p>
+        </footer>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
